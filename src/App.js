@@ -1,17 +1,21 @@
 import { useState } from "react";
 
-const initialItems = [
-  { id: 1, description: "Passports", quantity: 2, packed: false },
-  { id: 2, description: "Socks", quantity: 12, packed: true },
-  { id: 3, description: "Charger", quantity: 12, packed: true },
-];
+// const initialItems = [
+//   { id: 1, description: "Passports", quantity: 2, packed: false },
+//   { id: 2, description: "Socks", quantity: 12, packed: true },
+//   { id: 3, description: "Charger", quantity: 12, packed: true },
+// ];
 
 export default function App() {
+  const [items, setItems] = useState([]);
+  const addItem = (newItem) => setItems((items) => [...items, newItem]);
+
   return (
     <div className="app">
       <Logo />
-      <Form />
-      <StackingList />
+      <Form onAddItem={addItem} />
+
+      <StackingList items={items} />
       <Stats />
     </div>
   );
@@ -21,14 +25,18 @@ function Logo() {
   return <h1>🌴 Far Away 💼</h1>;
 }
 
-function Form() {
+function Form({ onAddItem }) {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
+
   function handleSubmit(e) {
     e.preventDefault();
     if (!description) return;
-    const newItem = { description, quantity, key: Date.now(), packed: false };
+    const newItem = { description, quantity, id: Date.now(), packed: false };
     console.log(newItem);
+    onAddItem(newItem);
+    // onSetItems((items) => [...items, newItem]);
+    // onSetItems([newItem]);
   }
   return (
     <form className="add-form" onSubmit={handleSubmit}>
@@ -54,11 +62,11 @@ function Form() {
   );
 }
 
-function StackingList() {
+function StackingList({ items }) {
   return (
     <div className="list">
       <ul>
-        {initialItems.map((item) => (
+        {items.map((item) => (
           <Item item={item} key={item.id} />
         ))}
       </ul>
