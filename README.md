@@ -2,6 +2,12 @@
 
 A simple app to help users keep track of their travel equipment and essentials. The project allows you to easily add, manage, and organize items for your trips, making sure you never forget something important.
 
+## Live Demo
+
+You can try out the live demo of this project at the following link:
+
+[Travel List - Live Demo](https://NeenduDev.github.io/Travel-List)
+
 ## Features
 
 - **Add Items**: Add travel equipment and other essential items to your list.
